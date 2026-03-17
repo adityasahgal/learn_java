@@ -1,0 +1,34 @@
+name: Commit Message Check
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  commit-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get commit message
+        id: commit_msg
+        run: |
+          echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+
+      - name: Validate commit message
+        run: |
+          MESSAGE="${{ steps.commit_msg.outputs.message }}"
+          echo "Commit message: $MESSAGE"
+
+          if [[ ! "$MESSAGE" =~ ^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?:\ .+ ]]; then
+            echo "❌ Invalid commit message format!"
+            echo "Use: type(scope): message"
+            exit 1
+          else
+            echo "✅ Commit message is valid!"
+          fi
