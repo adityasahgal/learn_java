@@ -14,12 +14,12 @@ class Car extends Vehicle {
     }
 }
 
-class Bike extends Vehicle {
+// class Bike extends Vehicle {
 
-    void start() {
-        System.out.println("Bike starts with key");
-    }
-}
+// void start() {
+// System.out.println("Bike starts with key");
+// }
+// }
 
 public class Abstraction {
     public static void main(String[] args) {
@@ -28,8 +28,8 @@ public class Abstraction {
         c.start();
         c.fuelType();
 
-        Bike b = new Bike();
-        b.start();
-        b.fuelType();
+        // Bike b = new Bike();
+        // b.start();
+        // b.fuelType();
     }
 }
